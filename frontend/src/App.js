@@ -1,30 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Login from "./Screens/Login";
+import { Provider } from "react-redux";
+import mystore from "./redux/store";
+import StudentHome from "./Screens/Student/Home";
+import FacultyHome from "./Screens/Faculty/Home";
+import AdminHome from "./Screens/Admin/Home";
+import ForgetPassword from "./Screens/ForgetPassword";
+import UpdatePassword from "./Screens/UpdatePassword";
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<h1>Login Page (Placeholder)</h1>} />
-        <Route
-          path="/forget-password"
-          element={<h1>Forget Password Page (Placeholder)</h1>}
-        />
-        <Route
-          path="/:type/update-password/:resetId"
-          element={<h1>Update Password Page (Placeholder)</h1>}
-        />
-        <Route
-          path="/student"
-          element={<h1>Student Home Page (Placeholder)</h1>}
-        />
-        <Route
-          path="/faculty"
-          element={<h1>Faculty Home Page (Placeholder)</h1>}
-        />
-        <Route path="/admin" element={<h1>Admin Home Page (Placeholder)</h1>} />
-      </Routes>
-    </Router>
+    <>
+      <Provider store={mystore}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route
+              path="/:type/update-password/:resetId"
+              element={<UpdatePassword />}
+            />
+            <Route path="student" element={<StudentHome />} />
+            <Route path="faculty" element={<FacultyHome />} />
+            <Route path="admin" element={<AdminHome />} />
+          </Routes>
+        </Router>
+      </Provider>
+    </>
   );
 };
 
