@@ -1,4 +1,9 @@
 const express = require("express");
+
+router.get("/", (req, res) => {
+  res.send("Subject route is working ✅");
+});
+
 const {
   getSubjectController,
   addSubjectController,
