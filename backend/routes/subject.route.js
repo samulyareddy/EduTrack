@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 
 router.get("/", (req, res) => {
   res.send("Subject route is working ✅");
@@ -10,7 +11,7 @@ const {
   deleteSubjectController,
   updateSubjectController,
 } = require("../controllers/subject.controller");
-const router = express.Router();
+// const router = express.Router();
 const auth = require("../middlewares/auth.middleware");
 router.get("/", auth, getSubjectController);
 router.post("/", auth, addSubjectController);
