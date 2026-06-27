@@ -6,6 +6,7 @@ import CustomButton from "../../components/CustomButton";
 
 const AddMarks = () => {
   const [branches, setBranches] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const userToken = localStorage.getItem("userToken");
   const [students, setStudents] = useState([]);

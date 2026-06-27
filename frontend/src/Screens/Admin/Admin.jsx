@@ -38,14 +38,11 @@ const Admin = () => {
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [selectedAdminId, setSelectedAdminId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const userToken = localStorage.getItem("userToken");
+  const [userToken] = useState(() => localStorage.getItem("userToken"));
   const [file, setFile] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
 
-  useEffect(() => {
-    getAdminsHandler();
-  }, []);
-
+ 
   const getAdminsHandler = async () => {
     try {
       setDataLoading(true);
@@ -70,6 +67,12 @@ const Admin = () => {
       setDataLoading(false);
     }
   };
+   useEffect(() => {
+    if(userToken){
+         getAdminsHandler();
+    }
+  }, [userToken]);
+
 
   const addAdminHandler = async () => {
     try {
