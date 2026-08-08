@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { MdOutlineDelete, MdEdit } from "react-icons/md";
 import { IoMdAdd, IoMdClose } from "react-icons/io";
@@ -43,36 +43,36 @@ const Admin = () => {
   const [dataLoading, setDataLoading] = useState(false);
 
  
-  const getAdminsHandler = async () => {
-    try {
-      setDataLoading(true);
-      const response = await axiosWrapper.get(`/admin`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
-      if (response.data.success) {
-        setAdmins(response.data.data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      if (error.response?.status === 404) {
-        setAdmins([]);
-        return;
-      }
-      console.error(error);
-      toast.error(error.response?.data?.message || "Error fetching admins");
-    } finally {
-      setDataLoading(false);
-    }
-  };
-   useEffect(() => {
-    if(userToken){
-         getAdminsHandler();
-    }
-  }, [userToken]);
+  const getAdminsHandler = useCallback(async () => {
+  try {
+    setDataLoading(true);
 
+    const response = await axiosWrapper.get(`/admin`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
+    if (response.data.success) {
+      setAdmins(response.data.data);
+    } else {
+      toast.error(response.data.message);
+    }
+  } catch (error) {
+    if (error.response?.status === 404) {
+      setAdmins([]);
+      return;
+    }
+    console.error(error);
+    toast.error(error.response?.data?.message || "Error fetching admins");
+  } finally {
+    setDataLoading(false);
+  }
+}, [userToken]);
+ 
+  useEffect(() => {
+  getAdminsHandler();
+}, [getAdminsHandler]);
 
   const addAdminHandler = async () => {
     try {

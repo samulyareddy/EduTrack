@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { MdOutlineDelete, MdEdit } from "react-icons/md";
 import { IoMdAdd, IoMdClose } from "react-icons/io";
@@ -49,9 +49,9 @@ const Faculty = () => {
   useEffect(() => {
     getFacultyHandler();
     getBranchHandler();
-  }, []);
+  }, [getFacultyHandler, getBranchHandler]);
 
-  const getBranchHandler = async () => {
+  const getBranchHandler = useCallback(async () => {
     try {
       setDataLoading(true);
       const response = await axiosWrapper.get(`/branch`, {
@@ -74,9 +74,9 @@ const Faculty = () => {
     } finally {
       setDataLoading(false);
     }
-  };
+  },[userToken]);
 
-  const getFacultyHandler = async () => {
+  const getFacultyHandler = useCallback(async () => {
     try {
       toast.loading("Loading faculty...");
       const response = await axiosWrapper.get(`/faculty`, {
@@ -98,7 +98,7 @@ const Faculty = () => {
     } finally {
       toast.dismiss();
     }
-  };
+  },[userToken]);
 
   const addFacultyHandler = async () => {
     try {

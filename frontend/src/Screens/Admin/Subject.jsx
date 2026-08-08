@@ -202,7 +202,7 @@ const Subject = () => {
       </div>
       {dataLoading && <Loading />}
 
-      {!dataLoading && branch.length == 0 && (
+      {!dataLoading && branch.length === 0 && (
         <div className="flex justify-center items-center flex-col w-full mt-24">
           <CgDanger className="w-16 h-16 text-yellow-500 mb-4" />
           <p className="text-center text-lg">
