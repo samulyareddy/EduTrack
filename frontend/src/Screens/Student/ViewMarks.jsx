@@ -47,8 +47,8 @@ const ViewMarks = () => {
     fetchMarks(semester);
   };
 
-  const midTermMarks = marks.filter((mark) => mark.examId.examType === "mid");
-  const endTermMarks = marks.filter((mark) => mark.examId.examType === "end");
+  const midTermMarks = marks.filter((mark) => mark.examId?.examType === "mid");
+  const endTermMarks = marks.filter((mark) => mark.examId?.examType === "end");
 
   return (
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">

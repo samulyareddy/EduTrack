@@ -1,3 +1,6 @@
+require("dotenv").config();
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const adminDetails = require("./models/details/admin-details.model");
 const connectToMongo = require("./config/db");
 const mongoose = require("mongoose");

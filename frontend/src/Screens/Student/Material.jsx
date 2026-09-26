@@ -18,18 +18,24 @@ const Material = () => {
   });
 
   useEffect(() => {
-    fetchSubjects();
-  }, []);
+    if (userData?.branchId && userData?.semester) {
+      fetchSubjects();
+    }
+  }, [userData]);
 
   useEffect(() => {
-    fetchMaterials();
-  }, [filters]);
+    if (userData?.branchId && userData?.semester) {
+      fetchMaterials();
+    }
+  }, [filters, userData]);
 
   const fetchSubjects = async () => {
+    const branchId = userData?.branchId?._id || userData?.branchId;
+    if (!branchId || !userData?.semester) return;
     try {
       setDataLoading(true);
       const response = await axiosWrapper.get(
-        `/subject?semester=${userData.semester}&branch=${userData.branchId._id}`,
+        `/subject?semester=${userData.semester}&branch=${branchId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -52,11 +58,13 @@ const Material = () => {
   };
 
   const fetchMaterials = async () => {
+    const branchId = userData?.branchId?._id || userData?.branchId;
+    if (!branchId || !userData?.semester) return;
     try {
       setDataLoading(true);
       const queryParams = new URLSearchParams({
         semester: userData.semester,
-        branch: userData.branchId._id,
+        branch: branchId,
       });
 
       if (filters.subject) queryParams.append("subject", filters.subject);

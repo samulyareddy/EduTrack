@@ -46,11 +46,6 @@ const Faculty = () => {
   const [file, setFile] = useState(null);
   const [dataLoading, setDataLoading] = useState(null);
 
-  useEffect(() => {
-    getFacultyHandler();
-    getBranchHandler();
-  }, [getFacultyHandler, getBranchHandler]);
-
   const getBranchHandler = useCallback(async () => {
     try {
       setDataLoading(true);
@@ -74,7 +69,7 @@ const Faculty = () => {
     } finally {
       setDataLoading(false);
     }
-  },[userToken]);
+  }, [userToken]);
 
   const getFacultyHandler = useCallback(async () => {
     try {
@@ -98,7 +93,12 @@ const Faculty = () => {
     } finally {
       toast.dismiss();
     }
-  },[userToken]);
+  }, [userToken]);
+
+  useEffect(() => {
+    getFacultyHandler();
+    getBranchHandler();
+  }, [getFacultyHandler, getBranchHandler]);
 
   const addFacultyHandler = async () => {
     try {

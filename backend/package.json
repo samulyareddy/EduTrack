@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "seed": "node admin-seeder.js"
+    "seed": "node seeder.js"
   },
   "author": "Singireddy Amulya Reddy",
   "license": "ISC",
